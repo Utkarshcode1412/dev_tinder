@@ -1,0 +1,21 @@
+{
+  "name": "dev_tinder",
+  "version": "1.0.0",
+  "description": "Tinder for developers",
+  "keywords": [
+    "javascript",
+    "backend",
+    "express",
+    "react"
+  ],
+  "license": "ISC",
+  "author": "Utkarsh Pawar",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
