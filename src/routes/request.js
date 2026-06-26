@@ -13,7 +13,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
 
         const allowedStatus = ["intrested", "ignored"];
         if(!allowedStatus.includes(status)) {
-            res.status(400).json({
+            return res.status(400).json({
                 message: "Invalid status type" + status
             });
         }
@@ -21,7 +21,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
 
         const toUser = await User.findById(toUserId);
         if(!toUser) {
-            res.status(404).json({message: "User not found"});
+            return res.status(404).json({message: "User not found"});
         }
 
 
@@ -36,7 +36,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
 
 
         if(existingConnectionRequest) {
-            res.status(400).json(
+            return res.status(400).json(
                 {
                     message: "Connection request already exist!!"
                 }
@@ -62,3 +62,5 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
         res.status(400).send("ERROR: " + err.message);
     }
 });
+
+module.exports = requestRouter;
