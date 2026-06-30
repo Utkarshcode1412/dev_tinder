@@ -1,8 +1,8 @@
 const express = require("express");
 const { userAuth } = require("../middleware/auth.js");
-const User = require("../models/user");
+const User = require("../models/user.js");
 const ConnectionRequest = require("../models/connectionRequest.js");
-const user = require("../models/user");
+
 
 const userRouter = express.Router();
 const SAFE_USER_DATA = "firstName lastName photoUrl age gender about skills";
@@ -10,23 +10,21 @@ const SAFE_USER_DATA = "firstName lastName photoUrl age gender about skills";
 userRouter.get("/user/requests/received", userAuth, async (req, res)  => {
     try {
         const loggedInUser = req.user;
-
         const connectionRequests = await ConnectionRequest.find(
             {
                 toUserId: loggedInUser._id,
-                status: "interested"
+                status: "interested",
             }
         ).populate("fromUserId", SAFE_USER_DATA);
-
         res.status(200).json(
             {
-                message: "All pending request fetched successfully",
+                message: "All interested requests fetched successfully",
                 data: connectionRequests
             }
         );
 
     } catch (err) {
-        req.statusCode(400).send("ERROR: " + err.message);
+        res.status(400).json({ message: err.message });
     }
 });
 

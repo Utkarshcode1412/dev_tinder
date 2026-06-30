@@ -61,7 +61,7 @@ const userSchema = new mongoose.Schema(
         about: {
             type: String,
             default: "Write about yourself",
-            maxLength: 200
+            maxLength: 400
         },
         skills: {
             type: [String]
